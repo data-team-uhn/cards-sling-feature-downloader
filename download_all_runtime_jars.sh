@@ -26,7 +26,7 @@ CARDS_VERSION=$(cat /cards/pom.xml | grep -m 1 '<version>' | cut '-d>' -f2 | cut
 java -jar org.apache.sling.feature.launcher-1.1.6.jar \
   -u "file:///cards/.mvnrepo,http://localhost:8000" \
   -p /deps -c /deps/cache \
-  -f /cards/distribution/target/${CARDS_VERSION}-core_${STORAGE_TYPE}_far.far \
+  -f /cards/distribution/target/cards-${CARDS_VERSION}-core_${STORAGE_TYPE}_far.far \
   -f $MAVEN_FEATURE_NAME \
   -cacheOnly
 
