@@ -11,4 +11,5 @@ docker run \
 	-v $DEPLOYMENT_M2_DIRECTORY:/m2 \
 	-e MAVEN_FEATURE_NAME="$MAVEN_FEATURE_NAME" \
 	-e STORAGE_TYPE="$STORAGE_TYPE" \
+	--network none \
 	-it cards/sling-feature-downloader
