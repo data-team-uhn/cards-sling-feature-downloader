@@ -21,7 +21,7 @@
 python3 -m http.server --bind 127.0.0.1 --directory /host_m2/repository &
 PYTHON_SERVER_PID=$!
 
-CARDS_VERSION=$(cat /cards/pom.xml | grep --max-count=1 '<version>' | cut '-d>' -f2 | cut '-d<' -f1)
+CARDS_VERSION=$(cat /cards/pom.xml | grep -m 1 '<version>' | cut '-d>' -f2 | cut '-d<' -f1)
 
 java -jar org.apache.sling.feature.launcher-1.1.6.jar \
   -u "file:///cards/.mvnrepo,http://localhost:8000" \
