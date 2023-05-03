@@ -27,13 +27,24 @@ DOCKER_CONTEXT_TAR_PATH=$(realpath docker_context.tar) || exit -1
 # Add all the JAR files into the Docker context
 (cd $JARS_M2_DIRECTORY && tar -c -v -f $DOCKER_CONTEXT_TAR_PATH .) || exit -1
 
-# Add a Dockerfile to the Docker context
+# Create a Docker context
 mkdir .tmpctx || exit -1
 cd .tmpctx
+
+# Add metadata files to the Docker context
+mkdir metadata
+
+# Add the yarn.lock file listing the contained JavaScript packages to the metadata
+cp $CARDS_DIRECTORY/aggregated-frontend/src/main/frontend/yarn.lock metadata/yarn.lock
+
+# Add a Dockerfile to the Docker context
 cat << EOF > Dockerfile || exit -1
 FROM $INPUT_DOCKER_IMAGE
 COPY repository /root/.m2/repository
+COPY metadata /metadata
 EOF
+
+# Build the Docker context into a usable Docker image
 tar -r -v -f $DOCKER_CONTEXT_TAR_PATH . || exit -1
 cd ..
 rm -rf .tmpctx || exit -1
