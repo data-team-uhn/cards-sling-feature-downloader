@@ -17,5 +17,5 @@ do
 	./get_with_docker.sh "$pkg" "mongo" || { echo "FAILED!"; exit 1; }
 done
 
-./add_jars_to_docker_image.sh $INPUT_DOCKER_IMAGE $OUTPUT_DOCKER_IMAGE $DEPLOYMENT_M2_DIRECTORY || { echo "FAILED!"; exit 1; }
+./add_artifacts_to_docker_image.sh $INPUT_DOCKER_IMAGE $OUTPUT_DOCKER_IMAGE $DEPLOYMENT_M2_DIRECTORY || { echo "FAILED!"; exit 1; }
 rm -rf $DEPLOYMENT_M2_DIRECTORY || { echo "FAILED!"; exit 1; }
