@@ -23,7 +23,7 @@ PYTHON_SERVER_PID=$!
 
 CARDS_VERSION=$(cat /cards/pom.xml | grep -m 1 '<version>' | cut '-d>' -f2 | cut '-d<' -f1)
 
-java -jar org.apache.sling.feature.launcher-1.1.6.jar \
+/org.apache.sling.feature.launcher/bin/launcher \
   -u "file:///cards/.mvnrepo,http://localhost:8000" \
   -p /deps -c /deps/cache \
   -f /cards/distribution/target/cards-${CARDS_VERSION}-core_${STORAGE_TYPE}_far.far \

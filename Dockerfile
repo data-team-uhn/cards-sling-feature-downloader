@@ -15,17 +15,30 @@
 # specific language governing permissions and limitations
 # under the License.
 
+# First stage to build org.apache.sling.feature.launcher
 FROM alpine:3.17
 
-# Install utilities for patching the JAR file, if such is necessary
+RUN apk update
+RUN apk add \
+  git \
+  maven
+
+RUN git clone https://github.com/data-team-uhn/sling-org-apache-sling-feature-launcher
+WORKDIR sling-org-apache-sling-feature-launcher
+RUN git checkout 29cdd9f86dd90223c7bbc7bea4618b3ddb7a0f25
+RUN mvn clean install
+
+# Second stage to build the usable image
+FROM alpine:3.17
+
 RUN apk update
 RUN apk add \
   openjdk11-jre \
   python3
 
-COPY sling-org-apache-sling-feature-launcher/target/org.apache.sling.feature.launcher-1.1.6.jar .
-
+COPY --from=0 /sling-org-apache-sling-feature-launcher/target/appassembler /org.apache.sling.feature.launcher
 COPY download_all_runtime_jars.sh /
+
 RUN chmod +x /download_all_runtime_jars.sh
 RUN chmod +r /download_all_runtime_jars.sh
 
