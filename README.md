@@ -9,9 +9,6 @@ Building
 --------
 
 ```bash
-cd sling-org-apache-sling-feature-launcher
-mvn clean install
-cd ..
 docker build -t cards/sling-feature-downloader .
 ```
 
